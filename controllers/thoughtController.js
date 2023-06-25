@@ -70,7 +70,7 @@ module.exports = {
 
     async deleteThought(req, res){
         try {
-            const data = await Thought.findOneAndUpdate({ _id: req.params.thoughtId }); // deletes a thought by id
+            const data = await Thought.findOneAndDelete({ _id: req.params.thoughtId }); // deletes a thought by id
             res.status(200).json(data);
         } catch (err) {
             res.status(500).json(err);
