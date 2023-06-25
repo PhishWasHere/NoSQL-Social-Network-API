@@ -31,4 +31,4 @@ const thoughtSchema = new Schema(
     }
 );
 
-export default thoughtSchema;
+module.exports = thoughtSchema;

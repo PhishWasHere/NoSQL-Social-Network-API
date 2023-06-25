@@ -23,7 +23,7 @@ const userSchema = new Schema(
         friends: [
             {
                 type: Schema.Types.ObjectId,
-                ref: 'User'
+                ref: 'ser'
             }
         ],
         created: {
@@ -40,5 +40,5 @@ const userSchema = new Schema(
     }
 );
 
-export default userSchema;
+module.exports = userSchema;
 
