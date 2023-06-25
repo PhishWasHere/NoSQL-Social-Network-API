@@ -1,17 +1,17 @@
-const router = require('express').Router();
-const { User } = require('.././models');
+const { User } = require('../models');
 
-exports.getUsers = (async (req, res) => {
+module.exports = {
+    async getUsers (req, res){
     try {
-        const data = await User.find({});
+        const data = await User.find();
         res.status(200).json(data);
     } catch (err) {
         res.status(500).json(err);
         console.log(err);
     }
-});
+},
 
-exports.getSingleUser = (async (req, res) => {
+async getSingleUser(req, res){
     try {
         const data = await User.find({ _id: req.params.userId });
         res.status(200).json(data);
@@ -19,9 +19,9 @@ exports.getSingleUser = (async (req, res) => {
         res.status(500).json(err);
         console.log(err);
     }
-});
+},
 
-exports.createUser = (async (req, res) => {
+async createUser(req, res){
     try {
         const data = await User.create({
             username: req.body.username,
@@ -32,9 +32,9 @@ exports.createUser = (async (req, res) => {
         res.status(500).json(err);
         console.log(err);
     }
-});
+},
 
-exports.updateUser = (async (req, res) => {
+async updateUser(req, res){
     try {
         const data = await User.update(
             {
@@ -56,9 +56,9 @@ exports.updateUser = (async (req, res) => {
         res.status(500).json(err);
         console.log(err);
     }
-});
+},
 
-exports.deleteUser = (async (req, res) => {
+async deleteUser(req, res){
     try {
         const data = await User.destroy({
             where: {
@@ -74,4 +74,5 @@ exports.deleteUser = (async (req, res) => {
         res.status(500).json(err);
         console.log(err);
     }
-});
+}
+};
