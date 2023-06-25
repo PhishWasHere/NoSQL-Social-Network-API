@@ -3,7 +3,7 @@ const { Thought, User, Reaction } = require('../models');
 module.exports = {
     async getThoughts(req, res){
         try {
-            const data = await Thought.find();
+            const data = await Thought.find(); // finds all thoughts
             res.status(200).json(data);
         } catch (err) {
             res.status(500).json(err);
@@ -13,7 +13,7 @@ module.exports = {
 
     async getSingleThought(req, res){
         try {
-            const data = await Thought.find({ _id: req.params.thoughtId });
+            const data = await Thought.findOne({ _id: req.params.thoughtId }); // finds a single thought by id
             res.status(200).json(data);
         }
         catch (err) {
@@ -24,13 +24,13 @@ module.exports = {
 
     async createThought(req, res){
         try {
-            const data = await Thought.create({
+            const data = await Thought.create({ // creates a new thought
                 thoughtText: req.body.thoughtText,
                 username: req.body.username,
                 userId: req.body.userId,
             });
 
-            const user = await User.findOneAndUpdate(
+            const user = await User.findOneAndUpdate( // adds the thought to the user's thoughts array field
                 { _id: req.body.userId },
                 { $addToSet: { thoughts: data.id } },
                 { new: true }
@@ -49,7 +49,7 @@ module.exports = {
 
     async updateThought(req, res){
         try {
-            const data = await Thought.findOneAndUpdate(
+            const data = await Thought.findOneAndUpdate( // updates a thought by id
                 { _id: req.params.thoughtId },
                 {
                     thoughtText: req.body.thoughtText,
@@ -70,7 +70,7 @@ module.exports = {
 
     async deleteThought(req, res){
         try {
-            const data = await Thought.findOneAndUpdate({ _id: req.params.thoughtId });
+            const data = await Thought.findOneAndUpdate({ _id: req.params.thoughtId }); // deletes a thought by id
             res.status(200).json(data);
         } catch (err) {
             res.status(500).json(err);
@@ -80,7 +80,7 @@ module.exports = {
 
     async addReaction(req, res){
         try {   
-            const data = await Reaction.create(req.body);
+            const data = await Reaction.create(req.body); // creates a reaction
             const thought = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId },
                 { $addToSet: { reactions: data._id } },
@@ -99,7 +99,7 @@ module.exports = {
 
     async removeReaction(req, res) {
         try {
-          const thought = await Thought.findOne({ _id: req.params.thoughtId });
+          const thought = await Thought.findOne({ _id: req.params.thoughtId }); // removes a reaction
           if (!thought) {
             res.status(404).json({ message: 'No thought found with that id!' });
             return;
