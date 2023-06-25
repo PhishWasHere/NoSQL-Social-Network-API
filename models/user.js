@@ -23,7 +23,7 @@ const userSchema = new Schema(
         friends: [
             {
                 type: Schema.Types.ObjectId,
-                ref: 'ser'
+                ref: 'User'
             }
         ],
         created: {
@@ -39,6 +39,7 @@ const userSchema = new Schema(
         id: false,
     }
 );
+
 
 const User = model('User', userSchema);
 
