@@ -12,7 +12,7 @@ const thoughtSchema = new Schema(
             type: Date,
             default: Date.now,
         },
-        username: {
+        username: { //wouldnt i want to make this a reference to the user model?
             type: String,
             required: true,
           },
