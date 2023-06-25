@@ -1,4 +1,4 @@
-const { Schema, Types } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const thoughtSchema = new Schema(
     {
@@ -12,7 +12,7 @@ const thoughtSchema = new Schema(
             type: Date,
             default: Date.now,
         },
-        username: {
+        username: { //wouldnt i want to make this a reference to the user model?
             type: String,
             required: true,
           },
@@ -31,4 +31,10 @@ const thoughtSchema = new Schema(
     }
 );
 
-export default thoughtSchema;
+thoughtSchema.virtual('reactionCount').get(function () {
+    return this.reactions.length;
+});
+
+const Thought = model('Thought', thoughtSchema);
+
+module.exports = Thought;

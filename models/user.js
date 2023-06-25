@@ -1,4 +1,4 @@
-const { Schema, Types } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const userSchema = new Schema(
     {
@@ -40,5 +40,11 @@ const userSchema = new Schema(
     }
 );
 
-export default userSchema;
+userSchema.virtual('friendCount').get(function () {
+    return this.friends.length;
+});
+ 
+const User = model('User', userSchema);
+
+module.exports = User;
 
